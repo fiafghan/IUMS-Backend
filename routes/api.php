@@ -29,6 +29,7 @@ Route::post('/violation',[ViolationTypeController::class, 'store']);
 Route::delete('/violation/{id}', [ViolationTypeController::class,'destroy']);
 Route::put('/violation/{id}',[ViolationTypeController::class,'update']);
 Route::post('/violationOnaUser', [ViolationController::class, 'store']);
+Route::get('/allViolationsFromUsers', [ViolationController::class, 'index']);
 Route::post('/check-email', [AuthController::class, 'checkEmail']);
 
 

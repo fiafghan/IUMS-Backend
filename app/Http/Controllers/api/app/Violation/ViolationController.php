@@ -10,7 +10,19 @@ class ViolationController extends Controller
 {
     /**
      * Store a newly created violation in storage.
+     * 
+     * 
      */
+
+    public function index()
+{
+    $violations = Violation::with(['internetUser', 'violationType'])->get();
+
+    return response()->json([
+        'data' => $violations,
+    ], 200);
+}
+
    public function store(Request $request)
 {
     try {
