@@ -113,7 +113,6 @@ $data= DB::table('internet_users as intu')
             'username' => $validated['username'],
             'status' => $validated['status'],
             'phone' => $validated['phone'],
-            'directorate_id' => $validated['directorate_id'],
             'device_limit' => $request->device_limit,
             'mac_address' => $validated['mac_address'],
         ]);

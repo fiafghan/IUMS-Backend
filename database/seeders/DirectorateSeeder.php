@@ -20,6 +20,7 @@ class DirectorateSeeder extends Seeder
 
 $directorates = [
     ['name' => 'Financial and administrative assistant', 'directorate_id' => DeputyMinistryEnum::AdministrativeAndFinancial->value],
+    ['name' => 'Information Technology Directorate', 'directorate_id' => DeputyMinistryEnum::AdministrativeAndFinancial->value],
     ['name' => 'Policy and Planning Department', 'directorate_id' => DeputyMinistryEnum::PlanAndPolicy->value],
     ['name' => 'Head of the office', 'directorate_id' => DeputyMinistryEnum::DeputyMinistry->value],
     ['name' => 'Department of Health Economics and Financing', 'directorate_id' => DeputyMinistryEnum::AdministrativeAndFinancial->value],

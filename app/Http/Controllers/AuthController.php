@@ -158,11 +158,12 @@ class AuthController extends Controller
             ], 400);
         }
 
+        $roleId = $request->input('role_id', 2);
         $newUser = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => 2, 
+            'role_id' => $roleId, 
         ]);
 
         $token = $newUser->createToken('YourAppName')->plainTextToken;
@@ -193,4 +194,60 @@ class AuthController extends Controller
             'message' => 'Logged out successfully.'
         ]);
     }
+    
+    // chech email to see if it exists in db
+    public function checkEmail(Request $request)
+{
+    $email = $request->input('email');
+
+    $exists = \App\Models\User::where('email', $email)->exists();
+
+    return response()->json([
+        'exists' => $exists
+    ]);
+}
+
+public function systemUsersUpdate(Request $request, $id)
+{
+    $user = User::findOrFail($id);
+
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'role_id' => 'required|integer',
+        'password' => 'nullable|min:6',
+    ]);
+
+    $user->name = $validatedData['name'];
+    $user->email = $validatedData['email'];
+    $user->role_id = $validatedData['role_id'];
+
+    if (!empty($validatedData['password'])) {
+        $user->password = Hash::make($validatedData['password']);
+    }
+
+    $user->save();
+
+    $user->load('role');
+
+    return response()->json([
+        'success' => true,
+        'user' => $user,
+        'message' => 'User updated successfully',
+    ]);
+}
+
+public function systemUsersDelete($id)
+{
+    $user = User::findOrFail($id);
+    $user->delete();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'User deleted successfully',
+    ]);
+}
+
+
+
 }

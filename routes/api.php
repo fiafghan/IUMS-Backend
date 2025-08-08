@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/internet',[InternetUserController::class, 'index']);
 Route::get('/user',[AuthController::class,'index']);
+Route::put('/user/{id}', [AuthController::class, 'systemUsersUpdate']);
+Route::delete('/user/{id}', [AuthController::class, 'systemUsersDelete']);
 Route::post('/internet',[InternetUserController::class,'store']);
  Route::put('/internet/{id}', [InternetUserController::class, 'update']); 
 Route::delete('/internet/{id}',[InternetUserController::class,'destroy']); 
@@ -24,10 +26,12 @@ Route::get('/violation',[ViolationTypeController::class,'index']);
 Route::post('/violation',[ViolationTypeController::class, 'store']);
 Route::delete('/violation/{id}', [ViolationTypeController::class,'destroy']);
 Route::put('/violation/{id}',[ViolationTypeController::class,'update']);
-    Route::post('/register', [AuthController::class, 'register']);
+Route::post('/check-email', [AuthController::class, 'checkEmail']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::put('/update-profile/{id}', [AuthController::class, 'updateProfile']);
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/register', [AuthController::class, 'register']);
 });
