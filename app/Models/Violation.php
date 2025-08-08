@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Violation extends Model
 {
-     protected $fillable = ['internet_user_id', 'comment'];
+     protected $fillable = ['internet_user_id', 'violation_type_id', 'comment'];
 
     public function internetUser()
     {
