@@ -312,5 +312,18 @@ public function updateStatus(Request $request, $id)
     return response()->json(['exists' => $exists]);
 }
 
+public function checkEmailInternetUser(Request $request)
+{
+    $email = $request->input('email');
+
+    $exists = \App\Models\Person::where('email', $email)->exists();
+
+    return response()->json([
+        'exists' => $exists,
+        'message' => $exists ? 'This Email is Already Taken! Please Try Another One!' : ''
+    ]);
+}
+
+
 
     }
