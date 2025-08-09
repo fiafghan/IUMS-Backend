@@ -24,7 +24,14 @@ $data= DB::table('internet_users as intu')
      ->join('internet_user_devices as user', 'user.internet_user_id', '=', 'intu.id')
      ->join('device_types as dt', 'user.device_type_id', '=', 'dt.id')  
     ->leftJoin('directorates as parent_dir', 'parent_dir.id', '=', 'dir.directorate_id')  
-    ->leftJoin('violations as val', 'val.internet_user_id', '=', 'intu.id')
+   ->leftJoin('violations as val', function ($join) {
+    $join->on('val.internet_user_id', '=', 'intu.id')
+         ->whereRaw('val.id = (
+             SELECT MAX(v2.id) 
+             FROM violations v2 
+             WHERE v2.internet_user_id = intu.id
+         )');
+   })
     ->select(
         'intu.id',
         'intu.mac_address',
@@ -39,6 +46,7 @@ $data= DB::table('internet_users as intu')
         'intu.status',
         'per.position',
          'dt.name as device_type',
+         'val.comment',
         DB::raw('COUNT(val.id) as violations_count'),  
         'parent_dir.name as deputy'  
     )
@@ -58,6 +66,7 @@ $data= DB::table('internet_users as intu')
         'parent_dir.name',
         'per.position', 
         'dt.name',
+        'val.comment'
     )
     ->get();
     
@@ -294,5 +303,14 @@ public function updateStatus(Request $request, $id)
         'status' => $internetUser->status,
     ]);
 }
+
+    public function checkUsername(Request $request)
+{
+    $username = $request->input('username');
+    $exists = \App\Models\InternetUser::where('username', $username)->exists();
+
+    return response()->json(['exists' => $exists]);
+}
+
 
     }

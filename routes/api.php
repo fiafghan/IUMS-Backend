@@ -17,6 +17,7 @@ Route::put('/user/{id}', [AuthController::class, 'systemUsersUpdate']);
 Route::delete('/user/{id}', [AuthController::class, 'systemUsersDelete']);
 Route::post('/internet',[InternetUserController::class,'store']);
  Route::put('/internet/{id}', [InternetUserController::class, 'update']); 
+ Route::post('/check-username', [AuthController::class, 'checkUsername']);
 Route::delete('/internet/{id}',[InternetUserController::class,'destroy']); 
 Route::get('/employment-type',[EmploymentTypeController::class,'index']);
 Route::get('/directorate',[DirectorateController::class,'index']);
