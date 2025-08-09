@@ -324,6 +324,19 @@ public function checkEmailInternetUser(Request $request)
     ]);
 }
 
+public function checkPhoneOfInternetUsers(Request $request)
+{
+    $phone = $request->input('phone');
+
+    $exists = \App\Models\Person::where('phone', $phone)->exists();
+
+    return response()->json([
+        'exists' => $exists,
+        'message' => $exists ? 'This Phone Number is Registered. Please Try another one!' : ''
+    ]);
+}
+
+
 
 
     }

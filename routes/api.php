@@ -19,6 +19,7 @@ Route::post('/internet',[InternetUserController::class,'store']);
  Route::put('/internet/{id}', [InternetUserController::class, 'update']); 
  Route::post('/check-username', [InternetUserController::class, 'checkUsername']);
  Route::post('/check-email-of-internet-users', [InternetUserController::class, 'checkEmailInternetUser']);
+ Route::post('/check-phone-of-internet-user', [InternetUserController::class, 'checkPhoneOfInternetUsers']);
 Route::delete('/internet/{id}',[InternetUserController::class,'destroy']); 
 Route::get('/employment-type',[EmploymentTypeController::class,'index']);
 Route::get('/directorate',[DirectorateController::class,'index']);
