@@ -32,6 +32,10 @@ $data= DB::table('internet_users as intu')
              WHERE v2.internet_user_id = intu.id
          )');
    })
+      ->leftJoin('violations_types as valt', function ($join) {
+    $join->on('val.violation_type_id', '=', 'valt.id');
+       
+   })
     ->select(
         'intu.id',
         'intu.mac_address',
@@ -47,6 +51,7 @@ $data= DB::table('internet_users as intu')
         'per.position',
          'dt.name as device_type',
          'val.comment',
+         'valt.name as violation_type',
         DB::raw('COUNT(val.id) as violations_count'),  
         'parent_dir.name as deputy'  
     )
@@ -66,7 +71,9 @@ $data= DB::table('internet_users as intu')
         'parent_dir.name',
         'per.position', 
         'dt.name',
-        'val.comment'
+        'val.comment',
+              'valt.name',
+
     )
     ->get();
     
