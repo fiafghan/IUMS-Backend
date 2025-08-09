@@ -336,6 +336,19 @@ public function checkPhoneOfInternetUsers(Request $request)
     ]);
 }
 
+public function checkMacAddress(Request $request)
+{
+    $mac = $request->input('mac_address');
+
+    $exists = \App\Models\InternetUser::where('mac_address', $mac)->exists();
+
+    return response()->json([
+        'exists' => $exists,
+        'message' => $exists ? 'This MAC Address is Already Registered! Please Try Another One!' : ''
+    ]);
+}
+
+
 
 
 
