@@ -112,7 +112,9 @@ $data= DB::table('internet_users as intu')
             'directorate_id' => 'required|exists:directorates,id',
             'email' => 'required|unique:persons,email', 
             'employee_type_id' => 'required|exists:employment_types,id', 
+            'group_id' => 'required|exists:groups,id',
             'mac_address' => 'nullable|unique:internet_users,mac_address', 
+
              
         ]);
 
@@ -131,7 +133,7 @@ $data= DB::table('internet_users as intu')
         
         $internetUser = InternetUser::create([
             'person_id' => $person->id,
-            'group_id' => $request->group_id,
+            'group_id' => $validated['group_id'],
             'username' => $validated['username'],
             'status' => $validated['status'],
             'phone' => $validated['phone'],
@@ -218,6 +220,7 @@ $data= DB::table('internet_users as intu')
             'person_id' => 'required|exists:persons,id',
             'device_limit' => 'required|exists:internet_users,device_limit',
             'mac_address' => 'nullable|exists:internet_users,mac_address',
+            'group_id' => 'required|exists:groups,id',
             'device_type_id' => 'required|exists:device_types,id',  
         ]);
 
