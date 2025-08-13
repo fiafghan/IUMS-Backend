@@ -13,11 +13,12 @@ use App\Http\Controllers\Api\Group\GroupController;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/internet',[InternetUserController::class, 'index']);
+Route::post('/internet',[InternetUserController::class,'store']);
 Route::get('/groups',[GroupController::class,'index']);
+Route::get('/group-type-counts', [GroupController::class, 'countsByType']);
 Route::get('/user',[AuthController::class,'index']);
 Route::put('/user/{id}', [AuthController::class, 'systemUsersUpdate']);
 Route::delete('/user/{id}', [AuthController::class, 'systemUsersDelete']);
-Route::post('/internet',[InternetUserController::class,'store']);
  Route::put('/internet/{id}', [InternetUserController::class, 'update']); 
  Route::post('/check-username', [InternetUserController::class, 'checkUsername']);
  Route::post('/check-email-of-internet-users', [InternetUserController::class, 'checkEmailInternetUser']);
