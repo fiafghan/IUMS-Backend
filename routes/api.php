@@ -12,16 +12,6 @@ use App\Http\Controllers\api\app\Violation\ViolationController;
 use App\Http\Controllers\Api\Group\GroupController;
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/group-type-counts', [GroupController::class, 'countsByType']);
- Route::post('/check-email-of-internet-users', [InternetUserController::class, 'checkEmailInternetUser']);
- Route::post('/check-phone-of-internet-user', [InternetUserController::class, 'checkPhoneOfInternetUsers']);
- Route::post('/check-mac-address', [InternetUserController::class, 'checkMacAddress']);
-Route::get('/employment-type',[EmploymentTypeController::class,'index']);
-Route::get('/directorate',[DirectorateController::class,'index']);
-Route::put('/users/{id}/status', [InternetUserController::class,'updateStatus'])->middleware('check.access:permission=update-system-data');
-Route::get('/employment-type-counts',[EmploymentTypeController::class,'employmentTypeCounts']);
-Route::get('/total-users', [InternetUserController::class, 'getTotalUsers']);
-Route::post('/check-email', [AuthController::class, 'checkEmail']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::put('/update-profile/{id}', [AuthController::class,'updateProfile'])->middleware('check.access:permission=update-users');
     Route::get('/profile', [AuthController::class, 'profile'])->middleware('check.access:permission=view-users');
@@ -43,13 +33,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/groups',[GroupController::class,'index']);
     Route::get('/device-types', [DeviceTypeController::class, 'index']);
     Route::post('/check-username', [InternetUserController::class, 'checkUsername']);
-
-
-
-
-
-
-
-
-
+    Route::post('/check-email-of-internet-users', [InternetUserController::class, 'checkEmailInternetUser']);
+    Route::post('/check-phone-of-internet-user', [InternetUserController::class, 'checkPhoneOfInternetUsers']);
+    Route::post('/check-mac-address', [InternetUserController::class, 'checkMacAddress']);
+    Route::get('/group-type-counts', [GroupController::class, 'countsByType']);
+    Route::get('/employment-type',[EmploymentTypeController::class,'index']);
+    Route::get('/directorate',[DirectorateController::class,'index']);
+    Route::put('/users/{id}/status', [InternetUserController::class,'updateStatus'])->middleware('check.access:permission=update-system-data');
+    Route::get('/employment-type-counts',[EmploymentTypeController::class,'employmentTypeCounts']);
+    Route::get('/total-users', [InternetUserController::class, 'getTotalUsers']);
+    Route::post('/check-email', [AuthController::class, 'checkEmail']);
 });
